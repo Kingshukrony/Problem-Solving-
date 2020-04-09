@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+int size, x[11];
+int check(int a, int b)
+{
+	int j=1;
+	while(j<=a-1)
+	{
+		if( abs(a-j)==abs(b-x[j]) )
+		{
+			b++; j=0;
+		}
+		else if( a==j || b==x[j] )
+		{
+			b++; j=0;
+		}
+		j++;
+	}
+	if(a==1 || b<=size)
+		return b;
+	else
+		return 0;
+}
+
+void main()
+{
+	int a, b=0, i;
+	clrscr();
+	printf("enter the size(min 4) : ");
+	scanf("%d",&size);
+	if(size<4)
+	{
+		printf("no combination can be formed");
+		exit();
+}
+	printf("possible positions are : \n");
+
+	for(a=1;a<=size;a++)
+	{
+		b=check(a,b+1);
+		if(b>size)
+		break;
+
+		if(b!=0)
+		{
+			x[a]=b;
+			b=0;
+			if(a==size)
+			{
+				for(i=1;i<=size;i++)
+					printf("%2d,%2d  ",i,x[i]);
+				printf("\n");
+				delay(20);
+
+				a=a/2;
+				for(i=a+1;i<=size;i++)
+					x[i]=0;
+
+				if(x[a]==size)
+				{
+					x[a]=0;
+					a--;
+				}
+
+				if(a>0)
+				{
+					b=x[a];
+					a--;
+				}
+				else
+					break;
+			}
+		}
+		else
+		{
+			a--;
+			b=x[a];
+
+			if(a>0)
+				a--;
+			else
+				break;
+		}
+	}
+	getch();
+}

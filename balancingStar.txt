@@ -1,0 +1,45 @@
+//Balancing Stars
+#include<stdio.h>
+#include<conio.h>
+void main(){
+	char inputStr[30];
+	static int starSum[10];
+	int i=0, bracketCount=-1, maxBracket=-1;
+	clrscr();
+
+	printf("Enter String to check :\n");
+	scanf("%s",inputStr);
+
+	while(inputStr[i]!='\0'){
+		if(inputStr[i]=='('){
+			bracketCount++;
+			if(bracketCount>maxBracket){
+				maxBracket=bracketCount;
+			}
+		}else if(inputStr[i]==')'){
+			bracketCount--;
+			if(bracketCount<-1){
+				printf("\nUnbalanced Bracket..");
+				getch();exit();
+			}
+		}else if(inputStr[i]=='*'){
+			starSum[bracketCount]++;
+		}else{
+			printf("\nWrong Input..");
+			getch();exit();
+		}
+		i++;
+	}
+	if(bracketCount>-1){
+		printf("\nUnbalanced Bracket..");
+	}else{
+		for(i=0; i<=maxBracket; i++){
+			if(starSum[i]<2){
+				printf("\nUnbalanced Star..");
+				getch();exit();
+			}
+		}
+		printf("\nBalanced stars..");
+	}
+	getch();
+}
